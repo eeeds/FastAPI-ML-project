@@ -11,6 +11,10 @@ conda activate fastapi
 ```sh
 pip install fastapi
 ```
+### Install other libraries that we'll use
+```sh
+pip install -r requirements.txt
+```
 ### I'll use a previous model for this project. It has made on a previous project-of-the-week.
 [churn-prediction-app](https://github.com/eeeds/churn-prediction-app)
 # Tools
