@@ -47,3 +47,60 @@ The command uvicorn main:app refers to:
 -   main: the file main.py (the Python "module").
 -   app: the object created inside of main.py with the line app = FastAPI().
 -   --reload: make the server restart after code changes. Only use for development.
+## Access to documentation
+You can access to your app documentation following [link](http://localhost:8000/docs)
+
+## Prediction app
+```python
+from fastapi import FastAPI
+import pickle 
+
+model_file = './models/pipeline.bin'
+
+with open(model_file, 'rb') as f_in:
+    pipeline = pickle.load(f_in)
+
+
+app = FastAPI()
+
+@app.post('/predict')
+async def predict(customer:dict):
+    y_pred = pipeline.predict_proba(customer)[0,1]
+    churn = y_pred>=0.5
+
+    result = {
+        'churn_probability': float(y_pred),
+        'churn': bool(churn)
+    }
+
+    return result 
+
+```
+## Run the app
+```sh
+uvicorn predict:app --reload
+```
+## Test request in https://localhost:8000/docs using this customer:
+```
+{
+  "CreditScore": 597,
+  "Geography": "Germany",
+  "Gender": "Female",
+  "Age": 35,
+  "Tenure": 8,
+  "Balance": 131101.04,
+  "NumOfProducts": 1,
+  "HasCrCard": 1,
+  "IsActiveMember": 1,
+  "EstimatedSalary": 192852.67,
+  "Exited": 0
+}
+```
+## Result
+```
+{
+  "churn_probability": 0.4,
+  "churn": false
+}
+```
+![result](images/result.PNG)
