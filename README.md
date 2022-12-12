@@ -134,3 +134,32 @@ print(response)
 ```sh
 python test.py
 ```
+# Error Handling
+
+# Dockerfile
+I've created the following Dockerfile in order to use it as a container:
+```dockerfile
+FROM python:3.9.15
+
+WORKDIR /code
+
+COPY ./requirements.txt /code/requirements.txt
+
+RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+
+COPY ./predict.py /code/predict.py
+
+COPY ./models/pipeline.bin /code/pipeline.bin
+
+CMD ["uvicorn", "predict:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
+```
+## Build the image
+```sh
+docker build -t fastapi .
+```
+## Run the container
+```sh
+docker run -d -p 8000:8000 fastapi
+```
+## Testing docker container
+![docker](images/docker-working-well.PNG)
