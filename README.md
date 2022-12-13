@@ -135,6 +135,19 @@ print(response)
 python test.py
 ```
 # Error Handling
+[Documentation](https://fastapi.tiangolo.com/tutorial/handling-errors/)
+## Handling 404 Error.
+```python
+from fastapi import FastAPI, HTTPException
+
+    if not result:
+        raise HTTPException(
+        status_code=404, detail=f"There is no result."
+    )
+```
+where:
+-   status_code: the HTTP status code, like 404 or 422.
+-   You have to import HTTPException in order to use it.
 
 # Dockerfile
 I've created the following Dockerfile in order to use it as a container:
