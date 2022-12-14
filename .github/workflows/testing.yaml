@@ -18,4 +18,4 @@ jobs:
       - name: Testing training
         run: |
           cd app/
-          python3 app/test_api.py
+          python3 test_api.py
