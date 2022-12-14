@@ -17,4 +17,5 @@ jobs:
           pip install -r requirements.txt
       - name: Testing training
         run: |
+          cd app/
           python3 app/test_api.py
