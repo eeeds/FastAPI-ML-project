@@ -1,0 +1,20 @@
+
+name: Testing data
+on: [push, pull_request]
+jobs:
+  testing-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+      - name: Creating and activating virtualenv
+        run: |
+          pip3 install virtualenv
+          virtualenv venv
+          source venv/bin/activate
+      - name: Installing dependencies
+        run: |
+          pip install -r requirements.txt
+      - name: Testing training
+        run: |
+          python3 app/test_api.py
