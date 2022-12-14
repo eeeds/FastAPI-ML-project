@@ -2,3 +2,4 @@ fastapi
 scikit-learn
 uvicorn
 pandas 
+httpx
